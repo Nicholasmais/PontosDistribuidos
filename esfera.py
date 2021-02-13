@@ -31,9 +31,7 @@ fig = px.scatter_3d(df, x = ponto[0], y = ponto[1], z=ponto[2], color=ponto[3])
 for template in ["plotly", "plotly_white", "plotly_dark", "ggplot2", "seaborn", "simple_white", "none"]:
     fig.update_layout(template='plotly_dark')
 
-#fig.update_traces(marker=dict(size=1,color='rgba(155,155,155,1)',
- #                             line=dict(width=2,
-  #                                      color='rgba(55,55,55,1)')))
+fig.update_traces(marker=dict(size=1))
 fig.show()
 
 
