@@ -10,7 +10,7 @@ for i in range(0, 10000):
     x.append(numx)
     y.append(numy)
     z.append(numz)
-    dist = (numx**2+numy**2+numz**2)**(1/2)
+    dist = ((numx-50)**2+(numy-50)**2+(50-numz)**2)**(1/2)
     ponto[0][i] = numx
     ponto[1][i] = numy
     ponto[2][i]= numz
