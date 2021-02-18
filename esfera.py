@@ -1,10 +1,10 @@
 import plotly.express as px
 from random import uniform
-
-from numpy import  arccos, sin, cos, pi
+from pandas import DataFrame
+from numpy import  arccos, sin, cos, pi, arange
 
 x = y = z = raio = []
-ponto = [[0]*10000,[0]*10000,[0]*10000,[0]*10000]
+ponto = [[0]*10000,[0]*10000,[0]*10000,[0]*10000, [0]*10000]
 
 for i in range (0,10000):
     phi = uniform(0, 2*pi)
@@ -25,6 +25,7 @@ for i in range (0,10000):
     raio.append(r)
 
     ponto[3][i] = raio[i]
+    ponto[4][i] = i
 
 df = px.data.iris()
 fig = px.scatter_3d(df, x = ponto[0], y = ponto[1], z=ponto[2], color=ponto[3])
@@ -32,6 +33,32 @@ for template in ["plotly", "plotly_white", "plotly_dark", "ggplot2", "seaborn", 
     fig.update_layout(template='plotly_dark')
 
 fig.update_traces(marker=dict(size=1))
+
 fig.show()
 
+df = DataFrame(ponto).transpose()
+df.columns = ["x",'y','z','raio', 'ponto']
 
+
+lista = df['raio'].tolist()
+
+lista.sort()
+
+yy = [0]*100
+
+for i in range (0,100):
+    for j in range(0,len(lista)):
+        if i-10< lista[j] < i:
+            yy[i] += 1 
+
+eixox = []
+for i in range(0,100):
+    eixox.append(i)
+
+plot = [eixox,lista]
+
+densi = px.scatter(x = plot[0], y = yy)
+densi.show()
+
+dense = px.scatter(x=ponto[4], y = ponto[3])
+dense.show()
