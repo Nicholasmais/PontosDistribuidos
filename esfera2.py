@@ -30,8 +30,6 @@ for template in ["plotly", "plotly_white", "plotly_dark", "ggplot2", "seaborn", 
 fig.update_traces(marker=dict(size=1))
 fig.update_layout(scene=dict(xaxis_title="Abscissa", yaxis_title="Ordenada", zaxis_title="Cota"))
 
-fig.show()
-
 
 df = DataFrame(ponto).transpose()
 df.columns = ["x",'y','z','raio']
@@ -45,17 +43,24 @@ yy = [0]*100
 
 for i in range (0,100):
     for j in range(0,len(lista)):
-        if i-10< lista[j] < i:
+        if 0.9*i < lista[j] < i:
             yy[i] += 1 
 
 eixox = []
 for i in range(0,100):
     eixox.append(i)
+yyround = [round(num) for num in lista]
+
+print(yyround.count(99))
+print(yyround.count(50))
+
+
+asd = []
+for i in    range(0,100):
+    asd.append(yyround.count(i))
+print(asd)
 
 plot = [eixox,lista]
 
-densi = px.scatter(x = plot[3], y = yy)
+densi = px.scatter(x = eixox, y = asd)
 densi.show()
-
-dense = px.scatter(x=ponto[4], y = ponto[3])
-dense.show()
