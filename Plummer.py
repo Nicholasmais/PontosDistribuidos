@@ -45,5 +45,19 @@ for template in ["plotly", "plotly_white", "plotly_dark", "ggplot2", "seaborn", 
 
 fig.update_traces(marker=dict(size=1))
 
-fig.show()
+#fig.show()
 
+
+numbers = [0, 0, 0, 0]
+volume = [0,0,0,0]
+densi= [0,0,0,0]
+eixox = ['10^18', '10^19', '10^20', '10^21']
+
+for i in range(0, 4):
+    numbers[i] = (sum(j <= 10**(18+i) for j in ponto[3]))
+    volume[i] = 4 / 3 * np.pi * (10**(18+i)) ** 3
+    densi[i] = numbers[i] / volume[i] * 10**56
+
+plano = px.scatter(x=eixox, y=densi)
+plano.update_layout(xaxis_title="Raio", yaxis_title="Densidade de pontos (10^-3)",yaxis_range=[0,5])
+plano.show()
