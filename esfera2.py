@@ -4,14 +4,13 @@ from pandas import DataFrame
 
 r = 100
 x = y = z = []
+num = []
 ponto = [[0]*10000,[0]*10000,[0]*10000, [0]*10000]
 for i in range(0, 10000):
     numx = random.randint(-100,100)
     numy = random.randint(-100,100)
     numz = random.randint(-100,100)
-    x.append(numx)
-    y.append(numy)
-    z.append(numz)
+   
     dist = ((numx)**2+(numy)**2+(numz)**2)**(1/2)
     if dist <= r:
         ponto[0][i] = numx
@@ -30,7 +29,8 @@ for template in ["plotly", "plotly_white", "plotly_dark", "ggplot2", "seaborn", 
 fig.update_traces(marker=dict(size=1))
 fig.update_layout(scene=dict(xaxis_title="Abscissa", yaxis_title="Ordenada", zaxis_title="Cota"))
 
-
+fig.show()
+'''
 df = DataFrame(ponto).transpose()
 df.columns = ["x",'y','z','raio']
 
@@ -51,16 +51,14 @@ for i in range(0,100):
     eixox.append(i)
 yyround = [round(num) for num in lista]
 
-print(yyround.count(99))
-print(yyround.count(50))
-
 
 asd = []
-for i in    range(0,100):
+for i in    range(1,101):
     asd.append(yyround.count(i))
-print(asd)
+
+print(lista)
 
 plot = [eixox,lista]
 
-densi = px.scatter(x = eixox, y = asd)
-densi.show()
+densi = px.scatter(x = num, y = ponto[3])
+densi.show()'''
