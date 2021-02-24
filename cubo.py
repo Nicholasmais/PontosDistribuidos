@@ -1,5 +1,7 @@
 import plotly.express as px
 from numpy import random
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 x = random.uniform(0,100,10000)
 y = random.uniform(0,100,10000)
@@ -39,14 +41,13 @@ fig.update_traces(marker=dict(size=1))
 fig.update_layout(template = 'plotly_dark',scene=dict(xaxis_title="Abscissa", yaxis_title="Ordenada", zaxis_title="Cota"))
 fig.show()
 
-planox = px.line(x=eixox, y=yx, title="Cubo")
-planox.update_layout(xaxis_title="Abscissa", yaxis_title="Quantidade de pontos", yaxis_range = [0,2000])
-planox.show()
+plano = make_subplots(specs=[[{"secondary_y": True}]])
 
-planoy = px.line(x=eixox, y=yy, title="Cubo")
-planoy.update_layout(xaxis_title="Ordenada", yaxis_title="Quantidade de pontos", yaxis_range = [0,2000])
-planoy.show()
+plano.update_layout(xaxis_title="Intervalo do eixo", yaxis_title="Quantidade de pontos", yaxis_range = [0,2000])
 
-planoz = px.line(x=eixox, y=yz, title="Cubo")
-planoz.update_layout(xaxis_title="Cota", yaxis_title="Quantidade de pontos", yaxis_range = [0,2000])
-planoz.show()
+plano.add_trace(go.Scatter(x=eixox, y=yx, name="Abscissa"),secondary_y=False)
+plano.add_trace(go.Scatter(x=eixox, y=yy, name="Ordenada"),secondary_y=False,)
+plano.add_trace(go.Scatter(x=eixox, y=yz, name="Cota"),secondary_y=False)
+
+
+plano.show()

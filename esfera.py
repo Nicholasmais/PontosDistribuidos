@@ -1,21 +1,15 @@
 import plotly.express as px
-from numpy import  sin, cos, pi, random, array
+from numpy import  sin, cos, pi, random, array, arccos
 
 phi = random.uniform(0, 2 * pi,5000)
-theta = random.uniform(0,pi,5000)
+costheta = random.uniform(-1,1,5000)
+theta = arccos(costheta)
 u = random.uniform(0, 1,5000)
 
-r = array([0]*5000)
-x = array([0]*5000)
-y = array([0]*5000)
-z = array([0]*5000)
-
-for i in range(0,5000):
-     r[i] = ( 100 * (u[i]) ** (1 / 3))
-
-     x[i] = ( r[i] * sin(theta[i]) * cos(phi[i]))
-     y[i] = ( r[i] * sin(theta[i]) * sin(phi[i]))
-     z[i] = (r[i] * cos(theta[i]))
+r = ( 100 * (u) ** (1 / 3))
+x = ( r * sin(theta) * cos(phi))
+y = ( r * sin(theta) * sin(phi))
+z = (r * cos(theta))
 
 yy = [0]*10
 eixox = ['0-10','10-20','20-30','30-40','40-50','50-60','60-70','70-80','80-90','90-100']
