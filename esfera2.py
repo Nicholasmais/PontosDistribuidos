@@ -1,64 +1,36 @@
 import plotly.express as px
-import random
-from pandas import DataFrame
+from numpy import sin, cos, pi, random, arccos, sqrt
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
-r = 100
-x = y = z = []
-num = []
-ponto = [[0]*10000,[0]*10000,[0]*10000, [0]*10000]
-for i in range(0, 10000):
-    numx = random.randint(-100,100)
-    numy = random.randint(-100,100)
-    numz = random.randint(-100,100)
-   
-    dist = ((numx)**2+(numy)**2+(numz)**2)**(1/2)
-    if dist <= r:
-        ponto[0][i] = numx
-        ponto[1][i] = numy
-        ponto[2][i]= numz
-        ponto[3][i] = dist
-    
+a = 7.7 * 10 ** 20
 
-df = px.data.iris()
+ani = [i for i in range(10000)]
+phi = random.uniform(0, 2 * pi, 10000)
+theta = arccos(random.uniform(-1, 1, 10000))
+r = a / (sqrt((random.uniform(0, 1, 10000) ** (-2.0 / 3.0) - 1)))
 
-fig = px.scatter_3d(df, x = ponto[0], y = ponto[1], z=ponto[2], color=ponto[3], title='Distribuição de pontos em um Cubo')
-for template in ["plotly", "plotly_white", "plotly_dark", "ggplot2", "seaborn", "simple_white", "none"]:
-    fig.update_layout(template='plotly_dark')
+x = (r * sin(theta) * cos(phi))
+y = (r * sin(theta) * sin(phi))
+z = (r * cos(theta))
+R = max(r)
 
+raio = [10 * i for i in range(11)]
+mr = [10000 * ((i * .001 * R / a) ** 3 / ((1 + (i * .001 * R / a) ** 2) ** (3 / 2))) for i in range(0, 101)]
 
+yy = [0] * 101
+eixox = [f'{i*0.01:.2}%' for i in range (0,101)]
+
+for ra in range(0, 101):
+    temp = []
+    for k in range(0, 10000):
+        if 0.001 * ra * R >= r[k]:
+            temp.append(x[k])
+    yy[ra] = len(temp)
+
+df = px.data.gapminder()
+fig = px.scatter_3d(df, x=x, y=y, z=z, animation_frame=ani, range_x=[0,R], range_y=[0,R], range_z=[0,R])
+fig.update_layout(template='plotly_dark')
 fig.update_traces(marker=dict(size=1))
-fig.update_layout(scene=dict(xaxis_title="Abscissa", yaxis_title="Ordenada", zaxis_title="Cota"))
-
 fig.show()
-'''
-df = DataFrame(ponto).transpose()
-df.columns = ["x",'y','z','raio']
 
-
-lista = df['raio'].tolist()
-
-lista.sort()
-
-yy = [0]*100
-
-for i in range (0,100):
-    for j in range(0,len(lista)):
-        if 0.9*i < lista[j] < i:
-            yy[i] += 1 
-
-eixox = []
-for i in range(0,100):
-    eixox.append(i)
-yyround = [round(num) for num in lista]
-
-
-asd = []
-for i in    range(1,101):
-    asd.append(yyround.count(i))
-
-print(lista)
-
-plot = [eixox,lista]
-
-densi = px.scatter(x = num, y = ponto[3])
-densi.show()'''

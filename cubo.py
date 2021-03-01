@@ -27,13 +27,10 @@ for r in range(0,10):
         if z[k] > 10*r and z[k] <= 10*r+10:
             tempz.append(z[k])
 
-
-
     yx[r] = len(tempx)
     yy[r] = len(tempy)
     yz[r] = len(tempz)
 
-#cor = sorted(x)
 df = px.data.iris()
 
 fig = px.scatter_3d(df, x = x, y = y, z=z, title='Distribuição de pontos em um Cubo')
@@ -42,12 +39,9 @@ fig.update_layout(template = 'plotly_dark',scene=dict(xaxis_title="Abscissa", ya
 fig.show()
 
 plano = make_subplots(specs=[[{"secondary_y": True}]])
-
 plano.update_layout(xaxis_title="Intervalo do eixo", yaxis_title="Quantidade de pontos", yaxis_range = [0,2000])
-
 plano.add_trace(go.Scatter(x=eixox, y=yx, name="Abscissa"),secondary_y=False)
 plano.add_trace(go.Scatter(x=eixox, y=yy, name="Ordenada"),secondary_y=False,)
 plano.add_trace(go.Scatter(x=eixox, y=yz, name="Cota"),secondary_y=False)
-
-
 plano.show()
+
